@@ -20,6 +20,9 @@ mongoose.connect(`${process.env.DBSTRING}`, {}, (err: Error) => {
 });
 
 const app = express();
+const path = require("path");
+const buildPath = path.normalize(path.join(__dirname, '../../client/build'));
+app.use(express.static(buildPath));
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }))
 app.use(
@@ -48,21 +51,6 @@ passport.use(new localStrategy((username, password, done) => {
     });
 }));
 
-passport.serializeUser((user: any, cb) => {
-    cb(null, user._id);
-});
-
-passport.deserializeUser((id: string, cb) => {
-    User.findOne({ _id: id }, (err: Error, user: DatabaseUserInterface) => {
-        const userInformation = {
-            username: user.username,
-            isAdmin: user.isAdmin,
-            id: user._id
-        };
-        cb(err, userInformation)
-    });
-});
-
 // is this safe?
 const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const { user }: any = req;
@@ -81,6 +69,10 @@ const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
 }
 
 //Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+})
+
 app.post('/register', async (req: Request, res: Response) => {
 
     const { username, password } = req?.body;
