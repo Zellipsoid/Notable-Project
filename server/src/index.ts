@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }))
 app.use(
     session({
-        secret: "secretcode",
+        secret: process.env.SESSIONSECRET!,
         resave: true,
         saveUninitialized: true
     })
