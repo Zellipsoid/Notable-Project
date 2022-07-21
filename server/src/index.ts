@@ -161,6 +161,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
 
     const appointments: Array<AppointmentInterface> = [
         {
+            id: 1,
             firstName: "Larry",
             lastName: "Lobster",
             Time: new Date("2022-12-16"),
@@ -168,6 +169,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             physicianId: 1
         },
         {
+            id: 2,
             firstName: "Turtle",
             lastName: "Todd",
             Time: new Date("2022-12-17"),
@@ -175,6 +177,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             physicianId: 1
         },
         {
+            id: 3,
             firstName: "Cat",
             lastName: "Nip",
             Time: new Date("2022-12-18"),
@@ -182,12 +185,14 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             physicianId: 2
         },
         {
+            id: 4,
             firstName: "Roxy",
             lastName: "Raccoon",
             Time: new Date("2022-12-19"),
             Kind: "Follow-up",
             physicianId: 2
         }, {
+            id: 5,
             firstName: "Samson",
             lastName: "Squirrel",
             Time: new Date("2022-12-20"),
@@ -195,6 +200,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             physicianId: 3
         },
         {
+            id: 6,
             firstName: "Jen",
             lastName: "Jellyfish",
             Time: new Date("2022-12-21"),
@@ -202,6 +208,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             physicianId: 3
         },
         {
+            id: 7,
             firstName: "Samantha",
             lastName: "Sandshrew",
             Time: new Date("2022-12-22"),
