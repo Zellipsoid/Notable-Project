@@ -7,7 +7,7 @@ import passportLocal from 'passport-local';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import bcrypt from 'bcryptjs';
-import User from './User'
+import User from './schema/User';
 import dotenv from 'dotenv';
 import { DatabaseUserInterface, UserInterface } from './Interfaces/UserInterface';
 
@@ -35,6 +35,7 @@ app.use(
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+
 // Passport
 passport.use(new localStrategy((username, password, done) => {
     User.findOne({ username: username }, (err: Error, user: DatabaseUserInterface) => {
@@ -66,7 +67,7 @@ passport.deserializeUser((id: string, cb) => {
     });
 });
 
-// is this safe?
+// is this safe? Right now, Passport uses cookie/session-based auth. Would JWT be better?
 const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const { user }: any = req;
     if (user) {
