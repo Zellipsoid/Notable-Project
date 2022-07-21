@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { Card, CardContent, CardActions, Button, Typography, Box, TextField, Grid } from '@mui/material';
 
 const Login = () => {
     const [username, setUsername] = useState<string>("");
@@ -7,32 +8,46 @@ const Login = () => {
 
     const login = async () => {
         console.log("attmepting login");
-        let { data } = await axios.post("http://localhost:4000/login", {
+        let { data } = await axios.post(`http://localhost:4000/login`, {
             username,
             password
-        }, {withCredentials: true})
+        }, { withCredentials: true })
         console.log(data);
-        if (data === "success"){
+        if (data === "success") {
             window.location.href = "/";
         }
     }
 
-
-    const getUser = async () => {
-        let { data } = await axios.get("http://localhost:4000/user", {
-            withCredentials: true
-        })
-        console.log(data);
-    }
-
     return (
-        <div>
-            <h1>Login</h1>
-            <input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
-            <input type="text" placeholder="password" onChange={e => setPassword(e.target.value)}/>
-            <button onClick={login}>Login</button>
-            <button onClick={getUser}>Check Login</button>
-        </div>
+        <Grid container
+            spacing={2}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ m: 2 }}
+            >
+            <Grid item xs={12}>
+                <TextField
+                    value={(username)}
+                    onChange={e => setUsername(e.target.value)}
+                    id="outlined-required"
+                    label="Username"
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <TextField
+                    id="outlined-password-input"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <Button variant="contained" onClick={login}>Login</Button>
+            </Grid>
+        </Grid>
     )
 }
 
