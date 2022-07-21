@@ -111,7 +111,8 @@ app.post('/register', async (req: Request, res: Response) => {
                 password: hashedPassword
             });
             await newUser.save();
-            res.send("Success");
+            // TODO: I would like to change all these "success"'s to actual response codes
+            res.send("success");
         }
     });
 });

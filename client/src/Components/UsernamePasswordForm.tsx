@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, TextField, Grid } from '@mui/material';
 
-const UsernamePasswordForm = (props: {buttonText: string, onClickFunc: (username: string, password: string) => any}) => {
+const UsernamePasswordForm = (props: {buttonText: string, onClickFunc: (username: string, password: string) => any, error: boolean, errorMsg: string}) => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -19,6 +19,7 @@ const UsernamePasswordForm = (props: {buttonText: string, onClickFunc: (username
                     onChange={e => setUsername(e.target.value)}
                     id="outlined-required"
                     label="Username"
+                    error={props.error}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -29,6 +30,8 @@ const UsernamePasswordForm = (props: {buttonText: string, onClickFunc: (username
                     autoComplete="current-password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
+                    error={props.error}
+                    helperText={props.errorMsg}
                 />
             </Grid>
             <Grid item xs={12}>
