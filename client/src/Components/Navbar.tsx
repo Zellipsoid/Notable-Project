@@ -30,6 +30,7 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Some App
           </Typography>
+          <Button color="inherit" component={Link} to="/">Home</Button>
           {!userContext ? (<>
             <Button color="inherit" component={Link} to="/register">Register</Button>
             <Button color="inherit" component={Link} to="/login">Login</Button>
