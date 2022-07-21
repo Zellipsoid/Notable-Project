@@ -1,4 +1,4 @@
-import { Card, Grid, CardContent, Typography, ListItemText, ListSubheader } from '@mui/material'
+import { Card, Grid, CardContent, Typography, ListItemText, ListSubheader, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { AppointmentInterface } from '../Interfaces/AppointmentInterface';
@@ -43,7 +43,7 @@ const Home = () => {
       alignItems="center"
     >
       <Grid item xs={4}>
-    {/* // TODO: put this in its own file if time allows */}
+        {/* // TODO: put this in its own file if time allows */}
         <Grid
           container
           direction="column"
@@ -70,7 +70,33 @@ const Home = () => {
         </Grid >
       </Grid>
       <Grid item xs={8}>
-        table here
+        {/* TODO: also put this into its own file if time allows */}
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Patient Name</TableCell>
+                <TableCell align="right">Time</TableCell>
+                <TableCell align="right">Kind</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {appointments.map((row: AppointmentInterface) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {`${row.firstName} ${row.lastName}`}
+                  </TableCell>
+                  {/* TODO: use better date format */}
+                  <TableCell align="right">{row.Time.toString()}</TableCell>
+                  <TableCell align="right">{row.Kind}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Grid>
     </Grid>
   )
