@@ -11,6 +11,9 @@ import User from './schema/User';
 import dotenv from 'dotenv';
 import { DatabaseUserInterface, UserInterface } from './Interfaces/UserInterface';
 
+
+// TODO: I would like to split this file up
+
 const localStrategy = passportLocal.Strategy;
 dotenv.config();
 
@@ -67,7 +70,7 @@ passport.deserializeUser((id: string, cb) => {
     });
 });
 
-// is this safe? Right now, Passport uses cookie/session-based auth. Would JWT be better?
+// TODO: is this safe? Right now, Passport uses cookie/session-based auth. Would JWT be better?
 const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const { user }: any = req;
     if (user) {

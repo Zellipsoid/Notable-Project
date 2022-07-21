@@ -7,7 +7,7 @@ import { userContext as context } from './UserContext'
 const Navbar = () => {
     const userContext = useContext(context);
     const logout = async () => {
-        console.log("Logging out...");
+        // TODO: Move the server URL into an env file
         let { data } = await axios.get("http://localhost:4000/logout", {
             withCredentials: true
         })
