@@ -51,6 +51,21 @@ passport.use(new localStrategy((username, password, done) => {
     });
 }));
 
+passport.serializeUser((user: any, cb) => {
+    cb(null, user._id);
+});
+
+passport.deserializeUser((id: string, cb) => {
+    User.findOne({ _id: id }, (err: Error, user: DatabaseUserInterface) => {
+        const userInformation = {
+            username: user.username,
+            isAdmin: user.isAdmin,
+            id: user._id
+        };
+        cb(err, userInformation)
+    });
+});
+
 // is this safe?
 const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const { user }: any = req;
