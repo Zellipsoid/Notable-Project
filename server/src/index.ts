@@ -10,6 +10,7 @@ import bcrypt from 'bcryptjs';
 import User from './schema/User';
 import dotenv from 'dotenv';
 import { DatabaseUserInterface, UserInterface } from './Interfaces/UserInterface';
+import { AppointmentInterface } from './Interfaces/AppointmentInterface';
 
 
 // TODO: I would like to split this file up
@@ -131,6 +132,92 @@ app.get("/logout", (req: Request, res: Response) => {
         else res.send("success");
     });
 })
+
+app.get("/physicians", (req: Request, res: Response) => {
+    // TODO: make a physician interface
+    res.json([
+        {
+            id: 1,
+            firstName: "Donald",
+            lastName: "Duck",
+            email: "dd@email.com"
+        },
+        {
+            id: 2,
+            firstName: "Silly",
+            lastName: "Goose",
+            email: "sg@email.com"
+        },
+        {
+            id: 3,
+            firstName: "Salty",
+            lastName: "Seagull",
+            email: "ss@email.com"
+        }
+    ])
+})
+
+app.get("/appointments/:physicianId", (req: Request, res: Response) => {
+
+    const appointments: Array<AppointmentInterface> = [
+        {
+            firstName: "Larry",
+            lastName: "Lobster",
+            Time: new Date("2022-12-16"),
+            Kind: "New Patient",
+            physicianId: 1
+        },
+        {
+            firstName: "Turtle",
+            lastName: "Todd",
+            Time: new Date("2022-12-17"),
+            Kind: "Follow-up",
+            physicianId: 1
+        },
+        {
+            firstName: "Cat",
+            lastName: "Nip",
+            Time: new Date("2022-12-18"),
+            Kind: "New Patient",
+            physicianId: 2
+        },
+        {
+            firstName: "Roxy",
+            lastName: "Raccoon",
+            Time: new Date("2022-12-19"),
+            Kind: "Follow-up",
+            physicianId: 2
+        }, {
+            firstName: "Samson",
+            lastName: "Squirrel",
+            Time: new Date("2022-12-20"),
+            Kind: "New Patient",
+            physicianId: 3
+        },
+        {
+            firstName: "Jen",
+            lastName: "Jellyfish",
+            Time: new Date("2022-12-21"),
+            Kind: "Follow-up",
+            physicianId: 3
+        },
+        {
+            firstName: "Samantha",
+            lastName: "Sandshrew",
+            Time: new Date("2022-12-22"),
+            Kind: "New Patient",
+            physicianId: 3
+        }
+    ];
+    console.log(parseInt(req.params.physicianId));
+
+    let filteredAppointments = appointments.filter((appointment) => {
+        return appointment.physicianId === parseInt(req.params.physicianId)
+    });
+
+    res.json(filteredAppointments);
+})
+
 
 app.listen(4000, () => {
     console.log("Server started");
