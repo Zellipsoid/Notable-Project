@@ -28,7 +28,7 @@ const Navbar = () => {
           >
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Some App
+            Notable
           </Typography>
           <Button color="inherit" component={Link} to="/">Home</Button>
           {!userContext ? (<>
