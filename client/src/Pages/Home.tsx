@@ -1,4 +1,5 @@
 import { Card, Grid, CardContent, Typography, ListItemText, ListSubheader, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { AppointmentInterface } from '../Interfaces/AppointmentInterface';
@@ -31,7 +32,13 @@ const Home = () => {
     })
   }, [])
 
+  let tableColumns = [
+    { field: 'firstName', headerName: 'Name', width: 130 },
+    { field: 'lastName', headerName: '', width: 130 },
+    { field: 'time', headerName: 'Date', width: 260 },
+    { field: 'kind', headerName: 'Kind', width: 130 },
 
+  ]
 
 
   return (
@@ -44,15 +51,21 @@ const Home = () => {
     >
       <Grid item xs={4}>
         {/* // TODO: put this in its own file if time allows */}
+
         <Grid
           container
           direction="column"
           justifyContent="flex-start"
           alignItems="center"
-          sx={{ m: 2 }}
+          sx={{ m: 5 }}
         >
-          {
+          <Grid item>
+            <Typography variant="h4" gutterBottom component="div">
+              Physicians
+            </Typography>
+          </Grid>
 
+          {
             physicians.map((physician: PhysicianInterface) => {
               return (
                 <Grid item xs={12}>
@@ -70,35 +83,30 @@ const Home = () => {
         </Grid >
       </Grid>
       <Grid item xs={8}>
+        {selectedPhysician ? <Card sx={{ m: 5 }}>
+          <CardContent>
+            <Typography variant="h5" component="div">
+              {`Dr. ${selectedPhysician.firstName}, ${selectedPhysician.lastName}`}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {selectedPhysician.email}
+            </Typography>
+
+          </CardContent>
+        </Card> : <></>}
+
         {/* TODO: also put this into its own file if time allows */}
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Patient Name</TableCell>
-                <TableCell align="right">Time</TableCell>
-                <TableCell align="right">Kind</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {appointments.map((row: AppointmentInterface) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {`${row.firstName} ${row.lastName}`}
-                  </TableCell>
-                  {/* TODO: use better date format */}
-                  <TableCell align="right">{row.Time.toString()}</TableCell>
-                  <TableCell align="right">{row.Kind}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <div style={{ height: 400, width: '100%' }}>
+          <DataGrid
+            sx={{ m: 5 }}
+            rows={appointments}
+            columns={tableColumns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />
+        </div>
       </Grid>
-    </Grid>
+    </Grid >
   )
 }
 

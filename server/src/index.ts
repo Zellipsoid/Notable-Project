@@ -164,55 +164,55 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             id: 1,
             firstName: "Larry",
             lastName: "Lobster",
-            Time: new Date("2022-12-16"),
-            Kind: "New Patient",
+            time: new Date("2022-12-16"),
+            kind: "New Patient",
             physicianId: 1
         },
         {
             id: 2,
             firstName: "Turtle",
             lastName: "Todd",
-            Time: new Date("2022-12-17"),
-            Kind: "Follow-up",
+            time: new Date("2022-12-17"),
+            kind: "Follow-up",
             physicianId: 1
         },
         {
             id: 3,
             firstName: "Cat",
             lastName: "Nip",
-            Time: new Date("2022-12-18"),
-            Kind: "New Patient",
+            time: new Date("2022-12-18"),
+            kind: "New Patient",
             physicianId: 2
         },
         {
             id: 4,
             firstName: "Roxy",
             lastName: "Raccoon",
-            Time: new Date("2022-12-19"),
-            Kind: "Follow-up",
+            time: new Date("2022-12-19"),
+            kind: "Follow-up",
             physicianId: 2
         }, {
             id: 5,
             firstName: "Samson",
             lastName: "Squirrel",
-            Time: new Date("2022-12-20"),
-            Kind: "New Patient",
+            time: new Date("2022-12-20"),
+            kind: "New Patient",
             physicianId: 3
         },
         {
             id: 6,
             firstName: "Jen",
             lastName: "Jellyfish",
-            Time: new Date("2022-12-21"),
-            Kind: "Follow-up",
+            time: new Date("2022-12-21"),
+            kind: "Follow-up",
             physicianId: 3
         },
         {
             id: 7,
             firstName: "Samantha",
             lastName: "Sandshrew",
-            Time: new Date("2022-12-22"),
-            Kind: "New Patient",
+            time: new Date("2022-12-22"),
+            kind: "New Patient",
             physicianId: 3
         }
     ];
