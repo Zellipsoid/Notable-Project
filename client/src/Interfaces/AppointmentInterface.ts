@@ -9,8 +9,7 @@ export interface AppointmentInterface {
 
 export interface ReadableAppointmentInterface {
     id: number;
-    firstName: string;
-    lastName: string;
+    name: string;
     time: string;
     kind: string;
     physicianId: number;

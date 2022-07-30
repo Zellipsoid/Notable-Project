@@ -12,8 +12,7 @@ interface AppointmentTableProps {
 const AppointmentTable: React.FC<AppointmentTableProps> = ({ appointments = [] }) => {
 
   let tableColumns = [
-    { field: 'firstName', headerName: 'Name', width: 130 },
-    { field: 'lastName', headerName: '', width: 130 },
+    { field: 'name', headerName: 'Name', width: 260 },
     { field: 'time', headerName: 'Date', width: 260 },
     { field: 'kind', headerName: 'Kind', width: 130 },
 
@@ -21,7 +20,11 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({ appointments = [] }
 
   let formattedAppointments: Array<ReadableAppointmentInterface> = appointments.map(appointment => {
     const date = new Date(appointment.time);
-    return { ...appointment, time: `${new Date(date).toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}` }
+    return {
+      ...appointment,
+      time: `${new Date(date).toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}`,
+      name: `${appointment.lastName}, ${appointment.firstName}`
+      }
   });
 
 
