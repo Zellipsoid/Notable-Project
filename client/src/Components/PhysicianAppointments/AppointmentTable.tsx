@@ -3,11 +3,14 @@ import { Button, TextField, Grid, Card, CardContent, Typography } from '@mui/mat
 import { PhysicianInterface } from '../../Interfaces/PhysicianInterface';
 import UsernamePasswordForm from '../UsernamePasswordForm';
 import { DataGrid } from '@mui/x-data-grid';
-import { AppointmentInterface } from '../../Interfaces/AppointmentInterface';
+import { AppointmentInterface, ReadableAppointmentInterface } from '../../Interfaces/AppointmentInterface';
 
-const AppointmentTable = (props: { appointments?: Array<AppointmentInterface> }) => {
+interface AppointmentTableProps {
+  appointments: Array<AppointmentInterface>
+};
 
-  //TODO: iterate through this and make the date format human-readable
+const AppointmentTable: React.FC<AppointmentTableProps> = ({ appointments = [] }) => {
+
   let tableColumns = [
     { field: 'firstName', headerName: 'Name', width: 130 },
     { field: 'lastName', headerName: '', width: 130 },
@@ -16,19 +19,26 @@ const AppointmentTable = (props: { appointments?: Array<AppointmentInterface> })
 
   ]
 
+  let formattedAppointments: Array<ReadableAppointmentInterface> = appointments.map(appointment => {
+    const date = new Date(appointment.time);
+    return { ...appointment, time: `${new Date(date).toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}` }
+  });
+
+
+  // TODO: fix sorting by date
   return (
     <>
       {
-        props.appointments ? <div style={{ height: 400, width: '100%' }}>
+        appointments ? <div style={{ height: 400, width: '100%' }}>
           <DataGrid
             sx={{ m: 5 }}
-            rows={props.appointments}
+            rows={formattedAppointments}
             columns={tableColumns}
             pageSize={5}
             rowsPerPageOptions={[5]}
           />
         </div> : <></>
-        }
+      }
     </>
   )
 }
