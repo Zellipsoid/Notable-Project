@@ -11,6 +11,7 @@ import User from './schema/User';
 import dotenv from 'dotenv';
 import { DatabaseUserInterface, UserInterface } from './Interfaces/UserInterface';
 import { AppointmentInterface } from './Interfaces/AppointmentInterface';
+import e from 'express';
 
 
 // TODO: I would like to split this file up
@@ -80,11 +81,11 @@ const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
             if (doc?.isAdmin) {
                 next()
             } else {
-                res.send("Sorry, you are not an admin");
+                res.status(403).send("Sorry, you are not an admin");
             }
         })
     } else {
-        res.send("Sorry, you are not logged in");
+        res.status(401).send("Sorry, you are not logged in");
     }
 }
 
@@ -98,13 +99,13 @@ app.post('/register', async (req: Request, res: Response) => {
     const { username, password } = req?.body;
 
     if (!username || !password || typeof username !== "string" || typeof password != "string") {
-        res.send("Invalid username or password")
+        res.status(401).send("Invalid username or password")
         return;
     }
 
     User.findOne({ username }, async (err: Error, doc: DatabaseUserInterface) => {
         if (err) throw err;
-        if (doc) res.send("User already exists");
+        if (doc) res.status(409).send("User already exists");
         if (!doc) {
             const hashedPassword = await bcrypt.hash(password, 10);
             const newUser = new User({
@@ -112,24 +113,28 @@ app.post('/register', async (req: Request, res: Response) => {
                 password: hashedPassword
             });
             await newUser.save();
-            // TODO: I would like to change all these "success"'s to actual response codes
-            res.send("success");
+            res.status(200).send("success");
         }
     });
 });
 
 app.post("/login", passport.authenticate("local"), (req: Request, res: Response) => {
-    res.send("success");
+    res.status(200).send("success");
 });
 
+// The user in req comes from the cookie sent after login by Passport. According to the internet, this should be secure enough.
 app.get("/user", (req: Request, res: Response) => {
-    res.send(req.user);
+    if (req?.user) {
+        res.status(200).send(req.user);
+    } else {
+        res.status(200).send("User is not logged in, but that is okay");
+    }
 })
 
 app.get("/logout", (req: Request, res: Response) => {
     req.logout((err: Error) => {
-        if (err) res.send("Failed to logout");
-        else res.send("success");
+        if (err) res.status(500).send("Failed to logout");
+        else res.status(200).send("success");
     });
 })
 
