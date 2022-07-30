@@ -1,5 +1,4 @@
-import { Card, Grid, CardContent, Typography, ListItemText, ListSubheader, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { Grid } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import AppointmentTable from '../Components/PhysicianAppointments/AppointmentTable';
@@ -21,7 +20,6 @@ const Home = () => {
     axios.get(`http://localhost:4000/appointments/${physician.id}`, {
       withCredentials: true
     }).then(res => {
-      console.log(res.data);
       setAppointments(res.data);
     })
   }

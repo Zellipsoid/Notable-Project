@@ -11,7 +11,6 @@ export default function UserContext(props: PropsWithChildren) {
         axios.get("http://localhost:4000/user", {
             withCredentials: true
         }).then(res => {
-          console.log(res.data);
             setUser(res.data);
         })
     }, [])

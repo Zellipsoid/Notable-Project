@@ -1,8 +1,5 @@
-import React, { useState } from 'react'
-import { Button, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
-import { PhysicianInterface } from '../../Interfaces/PhysicianInterface';
-import UsernamePasswordForm from '../UsernamePasswordForm';
-import { DataGrid, GridComparatorFn, gridDateTimeFormatter } from '@mui/x-data-grid';
+
+import { DataGrid, GridComparatorFn } from '@mui/x-data-grid';
 import { AppointmentInterface, ReadableAppointmentInterface } from '../../Interfaces/AppointmentInterface';
 
 interface AppointmentTableProps {

@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import { Button, TextField, Grid, Card, CardContent, Typography } from '@mui/material';
+import { Grid, Card, CardContent, Typography } from '@mui/material';
 import { PhysicianInterface } from '../../Interfaces/PhysicianInterface';
-import UsernamePasswordForm from '../UsernamePasswordForm';
 
 const PhysicianSelection = (props: { physicians: Array<PhysicianInterface>, selectPhysician: (physician: PhysicianInterface) => any }) => {
 

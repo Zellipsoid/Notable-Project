@@ -216,7 +216,6 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             physicianId: 3
         }
     ];
-    console.log(parseInt(req.params.physicianId));
 
     let filteredAppointments = appointments.filter((appointment) => {
         return appointment.physicianId === parseInt(req.params.physicianId)
