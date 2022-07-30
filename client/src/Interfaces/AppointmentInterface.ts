@@ -2,7 +2,7 @@ export interface AppointmentInterface {
     id: number;
     firstName: string;
     lastName: string;
-    time: Date;
+    datetime: Date;
     kind: string;
     physicianId: number;
 }
@@ -10,7 +10,7 @@ export interface AppointmentInterface {
 export interface ReadableAppointmentInterface {
     id: number;
     name: string;
-    time: string;
+    readableDatetime: string;
     kind: string;
     physicianId: number;
 }

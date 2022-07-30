@@ -164,7 +164,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             id: 1,
             firstName: "Larry",
             lastName: "Lobster",
-            time: new Date("2022-12-16"),
+            datetime: new Date("2022-12-16"),
             kind: "New Patient",
             physicianId: 1
         },
@@ -172,7 +172,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             id: 2,
             firstName: "Turtle",
             lastName: "Todd",
-            time: new Date("2022-12-17"),
+            datetime: new Date("2022-12-17"),
             kind: "Follow-up",
             physicianId: 1
         },
@@ -180,7 +180,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             id: 3,
             firstName: "Cat",
             lastName: "Nip",
-            time: new Date("2022-12-18"),
+            datetime: new Date("2022-12-18"),
             kind: "New Patient",
             physicianId: 2
         },
@@ -188,14 +188,14 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             id: 4,
             firstName: "Roxy",
             lastName: "Raccoon",
-            time: new Date("2022-12-19"),
+            datetime: new Date("2022-12-19"),
             kind: "Follow-up",
             physicianId: 2
         }, {
             id: 5,
             firstName: "Samson",
             lastName: "Squirrel",
-            time: new Date("2022-12-20"),
+            datetime: new Date("2022-12-20"),
             kind: "New Patient",
             physicianId: 3
         },
@@ -203,7 +203,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             id: 6,
             firstName: "Jen",
             lastName: "Jellyfish",
-            time: new Date("2022-12-21"),
+            datetime: new Date("2023-12-21"),
             kind: "Follow-up",
             physicianId: 3
         },
@@ -211,7 +211,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             id: 7,
             firstName: "Samantha",
             lastName: "Sandshrew",
-            time: new Date("2022-12-22"),
+            datetime: new Date("2022-12-24"),
             kind: "New Patient",
             physicianId: 3
         }

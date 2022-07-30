@@ -2,7 +2,7 @@ export interface AppointmentInterface {
     id: number;
     firstName: string;
     lastName: string;
-    time: Date;
+    datetime: Date;
     kind: string;
     physicianId: number;
 }
