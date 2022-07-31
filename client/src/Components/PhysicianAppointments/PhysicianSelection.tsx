@@ -21,7 +21,7 @@ const PhysicianSelection = (props: { physicians: Array<PhysicianInterface>, sele
       {
         props.physicians.map((physician: PhysicianInterface) => {
           return (
-            <Grid item xs={12} key={physician.id}>
+            <Grid item xs={12} key={physician._id}>
               <Card variant="outlined" sx={{ minWidth: 275, m: 1 }} onClick={() => props.selectPhysician(physician)}>
                 <CardContent>
                   <Typography variant="h5" component="div">

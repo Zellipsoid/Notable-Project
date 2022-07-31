@@ -8,8 +8,10 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import bcrypt from 'bcryptjs';
 import User from './schema/User';
+import Physician from './schema/Physician';
 import dotenv from 'dotenv';
 import { DatabaseUserInterface, UserInterface } from './Interfaces/UserInterface';
+import { DatabasePhysicianInterface } from './Interfaces/PhysicianInterface';
 import { AppointmentInterface } from './Interfaces/AppointmentInterface';
 import e from 'express';
 
@@ -77,7 +79,7 @@ const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const { user }: any = req;
     if (user) {
         User.findOne({ username: user.name }, (err: Error, doc: DatabaseUserInterface) => {
-            if (err) throw err;
+            if (err) res.status(500).send("Error");
             if (doc?.isAdmin) {
                 next()
             } else {
@@ -104,7 +106,7 @@ app.post('/register', async (req: Request, res: Response) => {
     }
 
     User.findOne({ username }, async (err: Error, doc: DatabaseUserInterface) => {
-        if (err) throw err;
+        if (err) res.status(500).send("Error");
         if (doc) res.status(409).send("User already exists");
         if (!doc) {
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -140,26 +142,34 @@ app.get("/logout", (req: Request, res: Response) => {
 
 app.get("/physicians", (req: Request, res: Response) => {
     // TODO: make a physician interface
-    res.json([
-        {
-            id: 1,
-            firstName: "Donald",
-            lastName: "Duck",
-            email: "dd@email.com"
-        },
-        {
-            id: 2,
-            firstName: "Silly",
-            lastName: "Goose",
-            email: "sg@email.com"
-        },
-        {
-            id: 3,
-            firstName: "Salty",
-            lastName: "Seagull",
-            email: "ss@email.com"
+    // res.json([
+    //     {
+    //         id: 1,
+    //         firstName: "Donald",
+    //         lastName: "Duck",
+    //         email: "dd@email.com"
+    //     },
+    //     {
+    //         id: 2,
+    //         firstName: "Silly",
+    //         lastName: "Goose",
+    //         email: "sg@email.com"
+    //     },
+    //     {
+    //         id: 3,
+    //         firstName: "Salty",
+    //         lastName: "Seagull",
+    //         email: "ss@email.com"
+    //     }
+    // ])
+    // TODO: paginatation
+    Physician.find({}, ( err: Error, physicians: DatabasePhysicianInterface[]) => {
+        console.log(physicians);
+        if (err) res.status(500).send("Error");
+        else {
+            res.send(physicians);
         }
-    ])
+    })
 })
 
 app.get("/appointments/:physicianId", (req: Request, res: Response) => {
@@ -171,7 +181,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             lastName: "Lobster",
             datetime: new Date("2022-12-16"),
             kind: "New Patient",
-            physicianId: 1
+            physicianId: "62e59e1c3d707c1e4c10fb2a"
         },
         {
             id: 2,
@@ -179,7 +189,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             lastName: "Todd",
             datetime: new Date("2022-12-17"),
             kind: "Follow-up",
-            physicianId: 1
+            physicianId: "62e59e1c3d707c1e4c10fb2a"
         },
         {
             id: 3,
@@ -187,7 +197,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             lastName: "Nip",
             datetime: new Date("2022-12-18"),
             kind: "New Patient",
-            physicianId: 2
+            physicianId: "62e5e7b53d707c1e4c10fb2b"
         },
         {
             id: 4,
@@ -195,14 +205,14 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             lastName: "Raccoon",
             datetime: new Date("2022-12-19"),
             kind: "Follow-up",
-            physicianId: 2
+            physicianId: "62e5e7b53d707c1e4c10fb2b"
         }, {
             id: 5,
             firstName: "Samson",
             lastName: "Squirrel",
             datetime: new Date("2022-12-20"),
             kind: "New Patient",
-            physicianId: 3
+            physicianId: "62e5e7d73d707c1e4c10fb2c"
         },
         {
             id: 6,
@@ -210,7 +220,7 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             lastName: "Jellyfish",
             datetime: new Date("2023-12-21"),
             kind: "Follow-up",
-            physicianId: 3
+            physicianId: "62e5e7d73d707c1e4c10fb2c"
         },
         {
             id: 7,
@@ -218,12 +228,12 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
             lastName: "Sandshrew",
             datetime: new Date("2022-12-24"),
             kind: "New Patient",
-            physicianId: 3
+            physicianId: "62e5e7d73d707c1e4c10fb2c"
         }
     ];
 
     let filteredAppointments = appointments.filter((appointment) => {
-        return appointment.physicianId === parseInt(req.params.physicianId)
+        return appointment.physicianId === req.params.physicianId
     });
 
     res.json(filteredAppointments);

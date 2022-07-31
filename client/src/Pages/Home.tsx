@@ -17,7 +17,7 @@ const Home = () => {
 
   let selectPhysician = (physician: PhysicianInterface) => {
     setSelectedPhysician(physician);
-    axios.get(`http://localhost:4000/appointments/${physician.id}`, {
+    axios.get(`http://localhost:4000/appointments/${physician._id}`, {
       withCredentials: true
     }).then(res => {
       setAppointments(res.data);

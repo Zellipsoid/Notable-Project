@@ -4,6 +4,6 @@ export interface AppointmentInterface {
     lastName: string;
     datetime: Date;
     kind: string;
-    physicianId: number;
+    physicianId: string;
 }
 // TODO: make an enum for Kind with "New Patient" and "Follow Up"
