@@ -1,8 +1,13 @@
-import { Grid, Card, CardContent, Typography } from '@mui/material';
+import { Grid, Card, CardContent, Typography, Box, Divider, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { PhysicianInterface } from '../../Interfaces/PhysicianInterface';
 
-const PhysicianSelection = (props: { physicians: Array<PhysicianInterface>, selectPhysician: (physician: PhysicianInterface) => any }) => {
+interface PhysicianSelectionProps {
+  selectPhysician: (physician: PhysicianInterface) => any;
+  selectedPhysicianId?: string;
+  physicians: Array<PhysicianInterface>;
+}
 
+const PhysicianSelection: React.FC<PhysicianSelectionProps> = ({ selectPhysician = (physician: PhysicianInterface) => { }, selectedPhysicianId = "", physicians = [] }) => {
 
   return (
     <Grid
@@ -18,22 +23,26 @@ const PhysicianSelection = (props: { physicians: Array<PhysicianInterface>, sele
         </Typography>
       </Grid>
 
-      {
-        // TODO: darken selected card
-        props.physicians.map((physician: PhysicianInterface) => {
-          return (
-            <Grid item xs={12} key={physician._id}>
-              <Card variant="outlined" sx={{ minWidth: 275, m: 1 }} onClick={() => props.selectPhysician(physician)}>
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    {`${physician.lastName}, ${physician.firstName}`}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          );
-        })
-      }
+      <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <List component="nav" aria-label="main mailbox folders">
+          <Divider component="li" />
+          {
+            physicians.map((physician: PhysicianInterface) => {
+              return (
+                <>
+                  <ListItemButton
+                    selected={selectedPhysicianId === physician._id}
+                    onClick={(event) => selectPhysician(physician)}
+                  >
+                    <ListItemText primary={`${physician.lastName}, ${physician.firstName}`} />
+                  </ListItemButton>
+                  <Divider component="li" />
+                </>
+              );
+            })
+          }
+        </List>
+      </Box>
     </Grid >
   )
 }

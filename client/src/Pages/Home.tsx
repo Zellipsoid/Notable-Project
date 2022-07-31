@@ -43,7 +43,7 @@ const Home = () => {
       alignItems="center"
     >
       <Grid item xs={4}>
-        <PhysicianSelection physicians={physicians} selectPhysician={selectPhysician} />
+        <PhysicianSelection physicians={physicians} selectPhysician={selectPhysician} selectedPhysicianId={selectedPhysician?._id} />
       </Grid>
       <Grid item xs={8}>
         <PhysicianCard selectedPhysician={selectedPhysician} />
