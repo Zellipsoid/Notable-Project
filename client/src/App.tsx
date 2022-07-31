@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        {userContext ? 
+        {userContext?.id ? 
         <>
             {/* routes for logged-in users here */}
         </> : 

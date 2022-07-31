@@ -31,7 +31,7 @@ const Navbar = () => {
             Notable
           </Typography>
           <Button color="inherit" component={Link} to="/">Home</Button>
-          {!userContext ? (<>
+          {!userContext?.id ? (<>
             <Button color="inherit" component={Link} to="/register">Register</Button>
             <Button color="inherit" component={Link} to="/login">Login</Button>
           </>) : (<Button color="inherit" onClick={logout}>Logout</Button>)}
