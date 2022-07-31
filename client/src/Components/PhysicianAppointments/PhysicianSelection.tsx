@@ -1,4 +1,4 @@
-import { Grid, Card, CardContent, Typography, Box, Divider, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Grid, Typography, Box, Divider, List, ListItemButton, ListItemText } from '@mui/material';
 import { PhysicianInterface } from '../../Interfaces/PhysicianInterface';
 
 interface PhysicianSelectionProps {
