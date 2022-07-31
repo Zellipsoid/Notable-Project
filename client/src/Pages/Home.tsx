@@ -40,7 +40,7 @@ const Home = () => {
       container
       direction="row"
       justifyContent="space-around"
-      alignItems="center"
+      alignItems="flex-start"
     >
       <Grid item xs={4}>
         <PhysicianSelection physicians={physicians} selectPhysician={selectPhysician} selectedPhysicianId={selectedPhysician?._id} />
