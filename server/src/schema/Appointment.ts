@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const physician = new mongoose.Schema({
+const appointment = new mongoose.Schema({
     firstName: String,
     lastName: String,
     datetime: Date,
@@ -12,4 +12,4 @@ const physician = new mongoose.Schema({
 
 })
 
-export default mongoose.model("Physician", physician);
+export default mongoose.model("Appointment", appointment);

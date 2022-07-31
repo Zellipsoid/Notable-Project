@@ -23,7 +23,8 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({ appointments = [] }
     return {
       ...appointment,
       readableDatetime: `${new Date(date).toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}`,
-      name: `${appointment.lastName}, ${appointment.firstName}`
+      name: `${appointment.lastName}, ${appointment.firstName}`,
+      id: appointment._id
     }
   });
 

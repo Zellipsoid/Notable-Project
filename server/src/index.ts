@@ -10,10 +10,10 @@ import bcrypt from 'bcryptjs';
 import User from './schema/User';
 import Physician from './schema/Physician';
 import dotenv from 'dotenv';
-import { DatabaseUserInterface, UserInterface } from './Interfaces/UserInterface';
+import { DatabaseUserInterface } from './Interfaces/UserInterface';
 import { DatabasePhysicianInterface } from './Interfaces/PhysicianInterface';
-import { AppointmentInterface } from './Interfaces/AppointmentInterface';
-import e from 'express';
+import { DatabaseAppointmentInterface } from './Interfaces/AppointmentInterface';
+import Appointment from './schema/Appointment';
 
 
 // TODO: I would like to split this file up
@@ -141,30 +141,8 @@ app.get("/logout", (req: Request, res: Response) => {
 })
 
 app.get("/physicians", (req: Request, res: Response) => {
-    // TODO: make a physician interface
-    // res.json([
-    //     {
-    //         id: 1,
-    //         firstName: "Donald",
-    //         lastName: "Duck",
-    //         email: "dd@email.com"
-    //     },
-    //     {
-    //         id: 2,
-    //         firstName: "Silly",
-    //         lastName: "Goose",
-    //         email: "sg@email.com"
-    //     },
-    //     {
-    //         id: 3,
-    //         firstName: "Salty",
-    //         lastName: "Seagull",
-    //         email: "ss@email.com"
-    //     }
-    // ])
     // TODO: paginatation
     Physician.find({}, ( err: Error, physicians: DatabasePhysicianInterface[]) => {
-        console.log(physicians);
         if (err) res.status(500).send("Error");
         else {
             res.send(physicians);
@@ -173,70 +151,13 @@ app.get("/physicians", (req: Request, res: Response) => {
 })
 
 app.get("/appointments/:physicianId", (req: Request, res: Response) => {
-
-    const appointments: Array<AppointmentInterface> = [
-        {
-            id: 1,
-            firstName: "Larry",
-            lastName: "Lobster",
-            datetime: new Date("2022-12-16"),
-            kind: "New Patient",
-            physicianId: "62e59e1c3d707c1e4c10fb2a"
-        },
-        {
-            id: 2,
-            firstName: "Turtle",
-            lastName: "Todd",
-            datetime: new Date("2022-12-17"),
-            kind: "Follow-up",
-            physicianId: "62e59e1c3d707c1e4c10fb2a"
-        },
-        {
-            id: 3,
-            firstName: "Cat",
-            lastName: "Nip",
-            datetime: new Date("2022-12-18"),
-            kind: "New Patient",
-            physicianId: "62e5e7b53d707c1e4c10fb2b"
-        },
-        {
-            id: 4,
-            firstName: "Roxy",
-            lastName: "Raccoon",
-            datetime: new Date("2022-12-19"),
-            kind: "Follow-up",
-            physicianId: "62e5e7b53d707c1e4c10fb2b"
-        }, {
-            id: 5,
-            firstName: "Samson",
-            lastName: "Squirrel",
-            datetime: new Date("2022-12-20"),
-            kind: "New Patient",
-            physicianId: "62e5e7d73d707c1e4c10fb2c"
-        },
-        {
-            id: 6,
-            firstName: "Jen",
-            lastName: "Jellyfish",
-            datetime: new Date("2023-12-21"),
-            kind: "Follow-up",
-            physicianId: "62e5e7d73d707c1e4c10fb2c"
-        },
-        {
-            id: 7,
-            firstName: "Samantha",
-            lastName: "Sandshrew",
-            datetime: new Date("2022-12-24"),
-            kind: "New Patient",
-            physicianId: "62e5e7d73d707c1e4c10fb2c"
+    // TODO: pagination
+    Appointment.find({physicianId: req.params.physicianId}, ( err: Error, appointments: DatabaseAppointmentInterface[]) => {
+        if (err) res.status(500).send("Error");
+        else {
+            res.json(appointments);
         }
-    ];
-
-    let filteredAppointments = appointments.filter((appointment) => {
-        return appointment.physicianId === req.params.physicianId
-    });
-
-    res.json(filteredAppointments);
+    })
 })
 
 

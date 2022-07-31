@@ -19,6 +19,7 @@ const PhysicianSelection = (props: { physicians: Array<PhysicianInterface>, sele
       </Grid>
 
       {
+        // TODO: darken selected card
         props.physicians.map((physician: PhysicianInterface) => {
           return (
             <Grid item xs={12} key={physician._id}>

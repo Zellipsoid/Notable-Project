@@ -1,5 +1,5 @@
-export interface AppointmentInterface {
-    id: number;
+export interface DatabaseAppointmentInterface {
+    _id: number;
     firstName: string;
     lastName: string;
     datetime: Date;

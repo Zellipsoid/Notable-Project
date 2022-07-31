@@ -1,5 +1,5 @@
 export interface AppointmentInterface {
-    id: number;
+    _id: string;
     firstName: string;
     lastName: string;
     datetime: Date;
@@ -8,7 +8,7 @@ export interface AppointmentInterface {
 }
 
 export interface ReadableAppointmentInterface {
-    id: number;
+    id: string;
     name: string;
     readableDatetime: string;
     kind: string;
