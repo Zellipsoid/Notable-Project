@@ -46,8 +46,15 @@ const Home = () => {
         <PhysicianSelection physicians={physicians} selectPhysician={selectPhysician} selectedPhysicianId={selectedPhysician?._id} />
       </Grid>
       <Grid item xs={8}>
-        <PhysicianCard selectedPhysician={selectedPhysician} />
-        <AppointmentTable appointments={appointments} />
+        {
+          selectedPhysician ?
+            (
+              <>
+                <PhysicianCard selectedPhysician={selectedPhysician} />
+                <AppointmentTable appointments={appointments} />
+              </>
+            ) : <></>
+        }
       </Grid>
     </Grid >
   )
