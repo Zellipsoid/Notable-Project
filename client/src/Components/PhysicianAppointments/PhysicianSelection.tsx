@@ -29,7 +29,9 @@ const PhysicianSelection: React.FC<PhysicianSelectionProps> = ({ selectPhysician
           {
             physicians.map((physician: PhysicianInterface) => {
               return (
-                <>
+                <Box
+                  key={physician._id}
+                >
                   <ListItemButton
                     selected={selectedPhysicianId === physician._id}
                     onClick={(event) => selectPhysician(physician)}
@@ -37,7 +39,7 @@ const PhysicianSelection: React.FC<PhysicianSelectionProps> = ({ selectPhysician
                     <ListItemText primary={`${physician.lastName}, ${physician.firstName}`} />
                   </ListItemButton>
                   <Divider component="li" />
-                </>
+                  </Box>
               );
             })
           }
