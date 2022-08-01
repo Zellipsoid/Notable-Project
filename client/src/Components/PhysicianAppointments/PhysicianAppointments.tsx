@@ -16,7 +16,7 @@ const PhysicianAppointments = () => {
 
   let selectPhysician = (physician: PhysicianInterface) => {
     setSelectedPhysician(physician);
-    axios.get(`process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/appointments/${physician._id}`, {
+    axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/appointments/${physician._id}`, {
       withCredentials: true
     }).then(res => {
       setAppointments(res.data);
@@ -24,7 +24,6 @@ const PhysicianAppointments = () => {
   }
 
   useEffect(() => {
-    console.log(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/physicians`);
     axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/physicians`, {
       withCredentials: true
     }).then(res => {

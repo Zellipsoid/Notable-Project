@@ -7,7 +7,7 @@ import { userContext as context } from './UserContext'
 const Navbar = () => {
     const userContext = useContext(context);
     const logout = async () => {
-        let { data } = await axios.get(`process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/logout`, {
+        let { data } = await axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/logout`, {
             withCredentials: true
         })
         if (data === "success"){

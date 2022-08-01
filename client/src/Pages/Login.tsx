@@ -5,7 +5,7 @@ import UsernamePasswordForm from '../Components/UsernamePasswordForm';
 const Login = () => {
 
     const login = async (username: string, password: string) => {
-        let res = await axios.post(`process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/login`, {
+        let res = await axios.post(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/login`, {
             username,
             password
         }, { withCredentials: true }).catch(e => {
