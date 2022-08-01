@@ -1,9 +1,13 @@
-import PhysicianAppointments from '../Components/PhysicianAppointments/PhysicianAppointments';
+import { Typography } from '@mui/material';
 
 const Home = () => {
 
   return (
-    <PhysicianAppointments />
+    <>
+      <Typography variant="h2" component="div" style={{ "display": "flex", "justifyContent": "center" }}>
+        Placeholder Home Page
+      </Typography>
+    </>
   )
 }
 

@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import "./main.css"
 import { userContext as context } from './Components/UserContext'
 import Register from './Components/Register';
+import PhysicianAppointments from './Components/PhysicianAppointments/PhysicianAppointments';
 
 function App() {
   const userContext = useContext(context);
@@ -16,7 +17,7 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         {userContext?.id ? 
         <>
-            {/* routes for logged-in users here */}
+            <Route path='/appointments' element={<PhysicianAppointments />}></Route>
         </> : 
         <>
           <Route path='/login' element={<Login />}></Route>
