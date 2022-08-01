@@ -74,7 +74,7 @@ passport.deserializeUser((id: string, cb) => {
     });
 });
 
-// TODO: is this safe? Right now, Passport uses cookie/session-based auth. Would JWT be better?
+// Passport uses cookie/session-based auth. It adds req.user server-side once the cookie is verified, so req.user is not actually coming from the client
 const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const { user }: any = req;
     if (user) {
@@ -83,11 +83,20 @@ const isAdminMiddleware = (req: Request, res: Response, next: NextFunction) => {
             if (doc?.isAdmin) {
                 next()
             } else {
-                res.status(403).send("Sorry, you are not an admin");
+                res.status(403).send("User is not an admin");
             }
         })
     } else {
-        res.status(401).send("Sorry, you are not logged in");
+        res.status(401).send("No user logged in");
+    }
+}
+
+// Passport uses cookie/session-based auth. It adds req.user server-side once the cookie is verified, so req.user is not actually coming from the client
+const userIsLoggedInMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated()) {
+        next()
+    } else {
+        res.status(401).send("No user logged in");
     }
 }
 
@@ -100,6 +109,7 @@ app.post('/register', async (req: Request, res: Response) => {
 
     const { username, password } = req?.body;
 
+    // TODO: add some more validation
     if (!username || !password || typeof username !== "string" || typeof password != "string") {
         res.status(401).send("Invalid username or password")
         return;
@@ -140,9 +150,9 @@ app.get("/logout", (req: Request, res: Response) => {
     });
 })
 
-app.get("/physicians", (req: Request, res: Response) => {
+app.get("/physicians", userIsLoggedInMiddleware, (req: Request, res: Response) => {
     // TODO: paginatation
-    Physician.find({}, ( err: Error, physicians: DatabasePhysicianInterface[]) => {
+    Physician.find({}, (err: Error, physicians: DatabasePhysicianInterface[]) => {
         if (err) res.status(500).send("Error");
         else {
             res.send(physicians);
@@ -150,9 +160,9 @@ app.get("/physicians", (req: Request, res: Response) => {
     })
 })
 
-app.get("/appointments/:physicianId", (req: Request, res: Response) => {
+app.get("/appointments/:physicianId", userIsLoggedInMiddleware, (req: Request, res: Response) => {
     // TODO: pagination
-    Appointment.find({physicianId: req.params.physicianId}, ( err: Error, appointments: DatabaseAppointmentInterface[]) => {
+    Appointment.find({ physicianId: req.params.physicianId }, (err: Error, appointments: DatabaseAppointmentInterface[]) => {
         if (err) res.status(500).send("Error");
         else {
             res.json(appointments);
@@ -161,6 +171,6 @@ app.get("/appointments/:physicianId", (req: Request, res: Response) => {
 })
 
 
-app.listen(4000, () => {
+app.listen(process.env.PORT, () => {
     console.log("Server started");
 });
