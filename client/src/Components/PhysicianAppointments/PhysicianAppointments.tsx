@@ -16,7 +16,7 @@ const PhysicianAppointments = () => {
 
   let selectPhysician = (physician: PhysicianInterface) => {
     setSelectedPhysician(physician);
-    axios.get(`http://localhost:4000/appointments/${physician._id}`, {
+    axios.get(`process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/appointments/${physician._id}`, {
       withCredentials: true
     }).then(res => {
       setAppointments(res.data);
@@ -24,8 +24,8 @@ const PhysicianAppointments = () => {
   }
 
   useEffect(() => {
-    // TODO: Move the server URL into an env file
-    axios.get("http://localhost:4000/physicians", {
+    console.log(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/physicians`);
+    axios.get(`${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/physicians`, {
       withCredentials: true
     }).then(res => {
       setPhysicians(res.data);

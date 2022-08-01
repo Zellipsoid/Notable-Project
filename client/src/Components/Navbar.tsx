@@ -7,8 +7,7 @@ import { userContext as context } from './UserContext'
 const Navbar = () => {
     const userContext = useContext(context);
     const logout = async () => {
-        // TODO: Move the server URL into an env file
-        let { data } = await axios.get("http://localhost:4000/logout", {
+        let { data } = await axios.get(`process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/logout`, {
             withCredentials: true
         })
         if (data === "success"){
